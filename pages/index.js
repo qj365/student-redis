@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import DeleteModal from '../components/DeleteModal';
+import StudentModal from '../components/StudentModal';
 
 export default function Home() {
     const id = useRef();
@@ -218,16 +219,17 @@ export default function Home() {
                                 ))}
                             </tbody>
                         </table>
-                        {showDeleteModal ? (
-                            <DeleteModal
-                                setDeleteShowModal={setDeleteShowModal}
-                                fetchUrl={fetchUrl}
-                                showDeleteModal={showDeleteModal}
-                            />
-                        ) : null}
                     </div>
                 </div>
             </div>
+            {showDeleteModal ? (
+                <DeleteModal
+                    setDeleteShowModal={setDeleteShowModal}
+                    fetchUrl={fetchUrl}
+                    showDeleteModal={showDeleteModal}
+                />
+            ) : null}
+            <StudentModal />
         </main>
     );
 }
