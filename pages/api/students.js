@@ -9,8 +9,6 @@ export default async function handler(req, res) {
 
     await client.connect();
 
-    console.log(Object.keys(req.query).length);
-
     if (!Object.keys(req.query).length) {
         const allKey = await client.keys('*');
 
