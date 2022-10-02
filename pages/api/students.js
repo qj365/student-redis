@@ -38,8 +38,8 @@ export default async function handler(req, res) {
         if (!req.query.gpaFrom && req.query.gpaTo) {
             query += `@gpa:[-inf ${req.query.gpaTo}]`;
         }
-
         const filterStudents = await client.ft.search('student-idx', query);
+
         res.status(200).json(filterStudents.documents.map(doc => doc.value));
     }
 

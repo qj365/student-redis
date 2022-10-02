@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import Backdrop from '../components/Backdrop';
 import DeleteModal from '../components/DeleteModal';
+import Skeleton from '../components/skeleton';
 import StudentModal from '../components/StudentModal';
+import TBody from '../components/TBody';
 
 export default function Home() {
     const id = useRef();
@@ -16,6 +18,13 @@ export default function Home() {
     const [showDeleteModal, setDeleteShowModal] = useState(0);
 
     const [showStudentModal, setStudentShowModal] = useState(0);
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    const setIdStudent = (method, id) => {
+        if (method === 'DELETE') setDeleteShowModal(id);
+        else if (method === 'PUT') setStudentShowModal(id);
+    };
 
     const onSubmitHandle = async e => {
         e.preventDefault();
@@ -86,6 +95,7 @@ export default function Home() {
 
     useEffect(() => {
         fetchStudents();
+        setIsLoading(false);
     }, []);
 
     return (
@@ -146,7 +156,7 @@ export default function Home() {
                                 >
                                     <option value="">Giới tính</option>
                                     <option value="Nam">Nam</option>
-                                    <option value="Nu">Nữ</option>
+                                    <option value="Nữ">Nữ</option>
                                 </select>
                             </div>
 
@@ -188,7 +198,7 @@ export default function Home() {
                                 type="submit"
                                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
-                                Submit
+                                Tìm kiếm
                             </button>
                         </form>
                     </div>
@@ -202,71 +212,14 @@ export default function Home() {
                     </button>
 
                     <div className="overflow-x-auto relative mt-2">
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead className="dark text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="py-3 px-6">
-                                        Mã sinh viên
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Tên sinh viên
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Giới tính
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Điểm trung bình
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        {' '}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {students
-                                    .sort((a, b) => a.id - b.id)
-                                    .map(student => (
-                                        <tr
-                                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                            key={student.id}
-                                        >
-                                            <th
-                                                scope="row"
-                                                className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                            >
-                                                {student.id}
-                                            </th>
-                                            <td className="py-4 px-6">
-                                                {student.name}
-                                            </td>
-                                            <td className="py-4 px-6">
-                                                {student.gender}
-                                            </td>
-                                            <td className="py-4 px-6">
-                                                {student.gpa}
-                                            </td>
-                                            <td>
-                                                <i
-                                                    className="bx bxs-edit text-lg cursor-pointer mr-3 "
-                                                    onClick={() =>
-                                                        setStudentShowModal(
-                                                            student.id
-                                                        )
-                                                    }
-                                                ></i>
-                                                <i
-                                                    className="bx bxs-trash text-lg cursor-pointer"
-                                                    onClick={() =>
-                                                        setDeleteShowModal(
-                                                            student.id
-                                                        )
-                                                    }
-                                                ></i>
-                                            </td>
-                                        </tr>
-                                    ))}
-                            </tbody>
-                        </table>
+                        {isLoading ? (
+                            <Skeleton />
+                        ) : (
+                            <TBody
+                                students={students}
+                                setIdStudent={setIdStudent}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
@@ -277,7 +230,6 @@ export default function Home() {
                 />
             ) : null}
             {showDeleteModal ? <Backdrop /> : null}
-
             {showStudentModal ? (
                 <StudentModal
                     onCancel={closeStudentModalHandle}

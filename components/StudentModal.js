@@ -93,7 +93,7 @@ export default function StudentModal({ state, onCancel, onConfirm }) {
                                     ref={genderRef}
                                 >
                                     <option value="Nam">Nam</option>
-                                    <option value="Nu">Nữ</option>
+                                    <option value="Nữ">Nữ</option>
                                 </select>
                             </div>
                             <div>
