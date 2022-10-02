@@ -10,12 +10,13 @@ export default async function handler(req, res) {
     await client.connect();
 
     if (!Object.keys(req.query).length) {
-        const allKey = await client.keys('*');
+        const allKey = await client.scan(0, 'type', 'hash');
 
-        const allStudents = allKey.map(async key => {
+        const allStudents = allKey.keys.map(async key => {
             const student = await client.hGetAll(key);
             return student;
         });
+
         res.status(200).json(await Promise.all(allStudents));
     } else {
         let query = ``;

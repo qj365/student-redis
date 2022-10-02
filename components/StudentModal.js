@@ -61,7 +61,9 @@ export default function StudentModal({ state, onCancel, onConfirm }) {
                     </button>
                     <div className="py-6 px-6 lg:px-8">
                         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                            Thêm sinh viên
+                            {state === -1
+                                ? 'Thêm sinh viên'
+                                : 'Cập nhật sinh viên'}
                         </h3>
                         <form className="space-y-6" onSubmit={submitHandler}>
                             <div>
