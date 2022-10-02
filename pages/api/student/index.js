@@ -29,7 +29,7 @@ export default async function handler(req, res) {
         await client.hSet(
             `student:${id}`,
             `gpa`,
-            `${parseFloat(req.body.gpa).toFixed(2).replace('.', ',')}`
+            `${parseFloat(req.body.gpa).toFixed(2)}`
         );
 
         res.status(200).json({ message: 'Success' });
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
         await client.hSet(
             `student:${id}`,
             `gpa`,
-            `${parseFloat(req.body.gpa).toFixed(2).replace('.', ',')}`
+            `${parseFloat(req.body.gpa).toFixed(2)}`
         );
 
         res.status(200).json({ message: 'Success' });
