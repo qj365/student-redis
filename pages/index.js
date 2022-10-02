@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import Backdrop from '../components/Backdrop';
 import DeleteModal from '../components/DeleteModal';
-import Skeleton from '../components/skeleton';
+import Skeleton from '../components/Skeleton';
 import StudentModal from '../components/StudentModal';
 import TBody from '../components/TBody';
 
