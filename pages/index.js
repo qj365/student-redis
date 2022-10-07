@@ -19,7 +19,7 @@ export default function Home() {
 
     const [showStudentModal, setStudentShowModal] = useState(0);
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const setIdStudent = (method, id) => {
         if (method === 'DELETE') setDeleteShowModal(id);
@@ -88,14 +88,16 @@ export default function Home() {
     };
 
     async function fetchStudents() {
+        setIsLoading(true);
+
         const res = await fetch('./api/students');
         const data = await res.json();
         setStudents(data);
+        setIsLoading(false);
     }
 
     useEffect(() => {
         fetchStudents();
-        setIsLoading(false);
     }, []);
 
     return (

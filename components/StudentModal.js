@@ -8,7 +8,7 @@ export default function StudentModal({ state, onCancel, onConfirm }) {
     function submitHandler(e) {
         e.preventDefault();
         onConfirm(
-            state,
+            state.id ? state.id : -1,
             nameRef.current.value,
             genderRef.current.value,
             gpaRef.current.value
@@ -16,13 +16,10 @@ export default function StudentModal({ state, onCancel, onConfirm }) {
     }
 
     const fetchStudentEdit = async () => {
-        if (state > 0) {
-            const response = await fetch(`./api/students?id=${state}`);
-            const data = await response.json();
-            console.log(data);
-            nameRef.current.value = data[0].name;
-            genderRef.current.value = data[0].gender;
-            gpaRef.current.value = data[0].gpa.replace(',', '.');
+        if (typeof state === 'object') {
+            nameRef.current.value = state.name;
+            genderRef.current.value = state.gender;
+            gpaRef.current.value = state.gpa;
         }
     };
 

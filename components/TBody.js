@@ -40,9 +40,7 @@ export default function TBody({ students, setIdStudent }) {
                             <td>
                                 <i
                                     className="bx bxs-edit text-lg cursor-pointer mr-3 "
-                                    onClick={() =>
-                                        setIdStudent('PUT', student.id)
-                                    }
+                                    onClick={() => setIdStudent('PUT', student)}
                                 ></i>
                                 <i
                                     className="bx bxs-trash text-lg cursor-pointer"
